@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_main.xml" value="0.14855072463768115" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/acerca_de.xml" value="0.2536231884057971" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_usuario.xml" value="0.14375" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/autentificacion.xml" value="0.264" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/info_usuario.xml" value="0.264" />
       </map>
     </option>
   </component>

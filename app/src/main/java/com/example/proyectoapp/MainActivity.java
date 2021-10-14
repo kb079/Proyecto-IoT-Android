@@ -15,6 +15,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onClick(View vista){
+        Intent intent = new Intent(this, UsuarioActivity.class);
+        startActivity(intent);
+    }
+
+
     public void lanzarMain(View view){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
