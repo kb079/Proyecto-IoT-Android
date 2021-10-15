@@ -47,18 +47,7 @@ public class UsuarioFragment extends Fragment {
         Button cerrarSesion =(Button) vista.findViewById(R.id.btn_cerrar_sesion);
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                AuthUI.getInstance().signOut(getActivity())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent i = new Intent(getActivity(),LoginActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                        | Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(i);
-                                getActivity().finish();
-                            }
-                        });
+                cerrarSesion();
             }
         });
 
@@ -83,5 +72,20 @@ public class UsuarioFragment extends Fragment {
             fotoUsuario.setImageUrl(urlImagen.toString(), lectorImagenes);
         }
         return vista;
+    }
+
+    public void cerrarSesion(){
+        AuthUI.getInstance().signOut(getActivity())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent i = new Intent(getActivity(),LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_NEW_TASK
+                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        getActivity().finish();
+                    }
+                });
     }
 }

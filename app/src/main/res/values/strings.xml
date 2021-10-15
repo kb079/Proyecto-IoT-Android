@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ProyectoApp</string>
+    <string name="channel_name">ProyectoApp Notifications</string>
+    <string name="channel_description">Notificaciones de ProyectoApp para tu nevera.</string>
+    <string name="textContentPAbierta">Parece que la puerta lleva abierta un buen rato...</string>
+    <string name="bigTextContentPAbierta">...y es posible que algunos alimentos se pongan malos.</string>
+    <string name="textContentTempAnomala">Parece que la temperatura ha bajado mucho...</string>
 </resources>

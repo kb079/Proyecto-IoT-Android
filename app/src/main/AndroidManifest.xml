@@ -13,6 +13,8 @@
             android:name=".MainActivity">
 
         </activity>
+        <activity android:name=".PruebaNotificaciones"
+            android:label="Demo notificaciones" />
         <activity android:name=".UsuarioActivity"
             android:label="Información sobre el usuario" />
         <activity android:name=".LoginActivity"

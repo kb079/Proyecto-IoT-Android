@@ -3,11 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.16458333333333333" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16458333333333333" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.16458333333333333" />
         <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/acerca_de.xml" value="0.2536231884057971" />
         <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_usuario.xml" value="0.14375" />
         <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/autentificacion.xml" value="0.264" />
         <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/info_usuario.xml" value="0.264" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/notificacion_p_abierta.xml" value="0.176" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/notificacion_temp_anomala.xml" value="0.176" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/prueba_notificaciones.xml" value="0.1484375" />
       </map>
     </option>
   </component>

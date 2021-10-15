@@ -15,13 +15,14 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/txtBienvenido" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/txtBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
+        android:singleLine="false"
         android:text="BIENVENIDO"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="35sp"
@@ -55,9 +56,23 @@
 
     <Button
         android:id="@+id/button5"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="lanzarPruebaNotificaciones"
+        android:text="Prueba notificaciones"
+        app:backgroundTint="#3F51B5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/btnCerrarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:onClick="cerrarSesion"
         android:text="Cerrar sesión"
         app:backgroundTint="#E53935"
         app:layout_constraintBottom_toBottomOf="parent"
