@@ -3,21 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.16458333333333333" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16458333333333333" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.16458333333333333" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/acerca_de.xml" value="0.2536231884057971" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_usuario.xml" value="0.14375" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/autentificacion.xml" value="0.264" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/info_usuario.xml" value="0.264" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/notificacion_p_abierta.xml" value="0.176" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/notificacion_temp_anomala.xml" value="0.176" />
-        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/prueba_notificaciones.xml" value="0.1484375" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_main2.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_mainn2.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/content_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/content_main2.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_about.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_fridges.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_profile.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_slideshow.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/info_usuario.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/layout/prueba_notificaciones.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/menu/activity_main_drawer.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/KB/Desktop/ProyectoApp_IoT_1_3/app/src/main/res/menu/main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_main.xml" value="0.14855072463768115" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
