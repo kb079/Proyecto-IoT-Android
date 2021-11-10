@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void lanzarScanner(View view){
+        Intent i = new Intent(this, ScannerActivity.class);
+        startActivity(i);
+    }
+
     public void cerrarSesion(View view){
         AuthUI.getInstance().signOut(MainActivity.this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
