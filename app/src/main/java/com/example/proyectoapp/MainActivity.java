@@ -1,81 +1,73 @@
 package com.example.proyectoapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.proyectoapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button notifyBtn;
+    public static Fragment currentFragment;
+    private AppBarConfiguration mAppBarConfiguration;
+    public static ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        setSupportActionBar(binding.appBarMain2.toolbar);
 
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main2);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    public void onClick(View vista){
-        Intent intent = new Intent(this, UsuarioActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main2);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
+    public void viewFridges(View v) {
 
-    public void lanzarMain(View view){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-    }
+        Intent iinent= new Intent(this, FridgesListFragment.class);
+        startActivity(iinent);
 
-    public void lanzarPruebaNotificaciones(View view){
-        Intent i = new Intent(this, PruebaNotificaciones.class);
-        startActivity(i);
-    }
 
-    public void lanzarAcercaDe(View view){
-        Intent i = new Intent(this, AcercaDeActivity.class);
-        startActivity(i);
+/*
+        getSupportParentActivityIntent();
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main2, new FridgesListFragment()).commitAllowingStateLoss();
+*/
+
     }
 
     public void lanzarScanner(View view){
         Intent i = new Intent(this, ScannerActivity.class);
         startActivity(i);
     }
-
-    public void cerrarSesion(View view){
-        AuthUI.getInstance().signOut(MainActivity.this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent i = new Intent(MainActivity.this,LoginActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                | Intent.FLAG_ACTIVITY_NEW_TASK
-                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        MainActivity.this.finish();
-                    }
-                });
-    }
-
 }

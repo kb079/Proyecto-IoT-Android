@@ -1,8 +1,31 @@
 <resources>
-    <string name="app_name">ProyectoApp</string>
+    <string name="title_activity_fridges_list">FridgesList</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="app_name">MyFridge</string>
     <string name="channel_name">ProyectoApp Notifications</string>
     <string name="channel_description">Notificaciones de ProyectoApp para tu nevera.</string>
     <string name="textContentPAbierta">Parece que la puerta lleva abierta un buen rato...</string>
     <string name="bigTextContentPAbierta">...y es posible que algunos alimentos se pongan malos.</string>
     <string name="textContentTempAnomala">Parece que la temperatura ha bajado mucho...</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_fridges">Inicio</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_about">Acerca de la App</string>
+    <string name="menu_notifications">Notificaciones</string>
+    <string name="menu_configuration">Configuración</string>
+    <string name="menu_log_out">Cerrar Sesión</string>
 </resources>
