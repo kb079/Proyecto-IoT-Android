@@ -50,7 +50,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
 
     implementation 'androidx.multidex:multidex:2.0.1'
-
+    implementation 'com.google.firebase:firebase-firestore:24.0.0'
 
 
     testImplementation 'junit:junit:4.+'

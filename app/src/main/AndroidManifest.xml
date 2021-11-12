@@ -10,11 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoApp">
         <activity
+            android:name=".FridgesListFragment"
+            android:exported="true"
+            android:label="@string/title_activity_fridges_list"
+            android:theme="@style/Theme.ProyectoApp.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ProyectoApp.NoActionBar" />
-        <activity android:name=".MainActivity2"></activity>
+        <activity android:name=".MainActivity2" />
         <activity
             android:name=".PruebaNotificaciones"
             android:label="Demo notificaciones" />
@@ -23,6 +28,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

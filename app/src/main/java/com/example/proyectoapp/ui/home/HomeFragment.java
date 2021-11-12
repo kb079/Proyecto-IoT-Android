@@ -8,18 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.proyectoapp.databinding.FragmentFridgesBinding;
+import com.example.proyectoapp.MainActivity;
+import com.example.proyectoapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentFridgesBinding binding;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentFridgesBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        MainActivity.currentFragment = getParentFragment();
         return root;
 
 
