@@ -1,19 +1,18 @@
 package com.example.proyectoapp.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewGroup;;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.proyectoapp.MainActivity;
+import com.example.proyectoapp.ScannerActivity;
 import com.example.proyectoapp.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -28,11 +27,14 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        binding.Bienvenida.setText("BIENVENIDO "+arr[0].toUpperCase());
-        MainActivity.currentFragment = getParentFragment();
+
+        binding.Bienvenida.setText("BIENVENIDO " +arr[0].toUpperCase());
+
+        binding.fab2.setOnClickListener(view ->
+                startActivity(new Intent(view.getContext(), ScannerActivity.class))
+        );
+
         return root;
-
-
     }
 
     @Override

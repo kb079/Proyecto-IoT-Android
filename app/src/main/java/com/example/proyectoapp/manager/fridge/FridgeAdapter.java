@@ -1,6 +1,5 @@
 package com.example.proyectoapp.manager.fridge;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,40 +9,35 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectoapp.R;
-
-import java.util.ArrayList;
-
-public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolderFridges> {
-
-    private ArrayList<Fridge> fridgesList;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 
-    public FridgeAdapter(ArrayList<Fridge> fridgeList){
-        this.fridgesList = fridgeList;
+public class FridgeAdapter extends FirestoreRecyclerAdapter<Fridge, FridgeAdapter.FridgeHolder> {
+
+
+    public FridgeAdapter(FirestoreRecyclerOptions<Fridge> fridgeList){
+        super(fridgeList);
 
     }
+
+    @Override
+    protected void onBindViewHolder(@NonNull FridgeHolder fridgeHolder, int i, @NonNull Fridge fridge) {
+        fridgeHolder.name.setText(fridge.getName());
+    }
+
     @NonNull
     @Override
-    public FridgeAdapter.ViewHolderFridges onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FridgeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fridges_element, null, false);
-        return new ViewHolderFridges(view);
+        return new FridgeHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull FridgeAdapter.ViewHolderFridges holder, int position) {
-        holder.name.setText(fridgesList.get(position).getName());
-    }
 
-    @Override
-    public int getItemCount() {
-        return fridgesList.size();
-    }
-
-    public class ViewHolderFridges extends RecyclerView.ViewHolder {
-
+    public class FridgeHolder extends RecyclerView.ViewHolder {
         TextView name;
 
-        public ViewHolderFridges(@NonNull View itemView) {
+        public FridgeHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nombre);
         }

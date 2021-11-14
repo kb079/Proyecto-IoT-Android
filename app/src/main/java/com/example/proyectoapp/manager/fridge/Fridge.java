@@ -1,8 +1,6 @@
 package com.example.proyectoapp.manager.fridge;
 
 
-import com.example.proyectoapp.Location;
-
 public class Fridge {
 
     private String name;
@@ -13,6 +11,8 @@ public class Fridge {
     public String getName() {
         return name;
     }
+
+    public Fridge(){ }
 
     public Fridge(String name, int temp, boolean opened, Location loc){
         this.name = name;
@@ -48,7 +48,6 @@ public class Fridge {
     public void setLoc(Location loc) {
         this.loc = loc;
     }
-
 
 }
 

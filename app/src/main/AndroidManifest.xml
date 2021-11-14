@@ -19,7 +19,8 @@
             android:name=".FridgesListFragment"
             android:exported="true"
             android:label="@string/title_activity_fridges_list"
-            android:theme="@style/Theme.ProyectoApp.NoActionBar" />
+            android:theme="@style/Theme.ProyectoApp.NoActionBar"
+             />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,4 +1,4 @@
-package com.example.proyectoapp;
+package com.example.proyectoapp.manager.fridge;
 
 public class Location {
 
