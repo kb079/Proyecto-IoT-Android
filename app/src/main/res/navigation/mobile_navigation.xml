@@ -25,8 +25,20 @@
 
     <fragment
         android:id="@+id/nav_fridgesList"
-        android:name="com.example.proyectoapp.FridgesListFragment"
+        android:name="com.example.proyectoapp.ui.fridges.FridgesListFragment"
         android:label="@string/menu_fridgestList"
-        tools:layout="@layout/fragment_fridgelist" />
+        tools:layout="@layout/fragment_fridgelist"/>
+
+    <fragment
+        android:id="@+id/nav_addFridge"
+        android:name="com.example.proyectoapp.ui.fridges.FridgeAddFragment"
+        android:label="@string/menu_addFridge"
+        tools:layout="@layout/fragment_addfridge" />
+
+    <fragment
+        android:id="@+id/nav_contentFridge"
+        android:name="com.example.proyectoapp.ui.fridges.FridgeContentFragment"
+        android:label=""
+        tools:layout="@layout/fragment_contentfridge" />
 
 </navigation>

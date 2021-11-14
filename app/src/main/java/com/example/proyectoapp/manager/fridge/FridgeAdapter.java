@@ -12,13 +12,10 @@ import com.example.proyectoapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-
 public class FridgeAdapter extends FirestoreRecyclerAdapter<Fridge, FridgeAdapter.FridgeHolder> {
-
 
     public FridgeAdapter(FirestoreRecyclerOptions<Fridge> fridgeList){
         super(fridgeList);
-
     }
 
     @Override
@@ -32,7 +29,6 @@ public class FridgeAdapter extends FirestoreRecyclerAdapter<Fridge, FridgeAdapte
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fridges_element, null, false);
         return new FridgeHolder(view);
     }
-
 
     public class FridgeHolder extends RecyclerView.ViewHolder {
         TextView name;

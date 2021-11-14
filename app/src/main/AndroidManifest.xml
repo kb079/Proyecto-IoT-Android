@@ -16,7 +16,7 @@
 
         </activity>
         <activity
-            android:name=".FridgesListFragment"
+            android:name=".ui.fridges.FridgesListFragment"
             android:exported="true"
             android:label="@string/title_activity_fridges_list"
             android:theme="@style/Theme.ProyectoApp.NoActionBar"

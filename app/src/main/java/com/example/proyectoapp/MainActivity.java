@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static ActivityMainBinding binding;
-    private NavController navController;
+
+    public static NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,5 +86,4 @@ public class MainActivity extends AppCompatActivity {
 */
         navController.navigate(R.id.nav_fridgesList);
     }
-
 }
