@@ -11,12 +11,24 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.zxing.Result;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import pl.coderion.model.Product;
 import pl.coderion.model.ProductResponse;
@@ -27,11 +39,37 @@ import pl.coderion.service.impl.OpenFoodFactsWrapperImpl;
 public class ScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     private Activity actividad = this;
+    FirebaseFirestore db;
+    ListenerRegistration registration;
+    Map<String, Object> nevera;
+    Map<String, String> productos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.escaner_cod_barras);
+
+
+
+        db = FirebaseFirestore.getInstance();
+        registration = db.collection("data").document("fridge0").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot snapshot,
+                        @Nullable FirebaseFirestoreException e){
+                    if (e != null) {
+                        Log.e("Firestore", "Error al leer", e);
+                    } else if (snapshot == null || !snapshot.exists()) {
+                        Log.e("Firestore", "Error: documento no encontrado ");
+                    } else {
+                        Log.d("Firestore", "datos:" + snapshot.getData().get("productos"));
+                        nevera = (Map) snapshot.getData();
+                        productos = (Map) snapshot.getData().get("productos");
+                    }
+                }
+            });
+        //db.collection("fridges").document("fridge0").get("productos");
+
+
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -56,7 +94,8 @@ public class ScannerActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case DialogInterface.BUTTON_POSITIVE:
-                                        Toast.makeText(ScannerActivity.this, "El producto ha sido añadido correctamente a su nevera", Toast.LENGTH_SHORT).show();
+                                        productos.put(String.valueOf(productos.size()),result.getText());
+                                        Toast.makeText(ScannerActivity.this, "El producto se añadirá a su nevera al salir del escáner", Toast.LENGTH_SHORT).show();
                                         break;
 
                                     case DialogInterface.BUTTON_NEGATIVE:
@@ -97,6 +136,8 @@ public class ScannerActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        nevera.put("productos", productos);
+        db.collection("data").document("fridge0").set(nevera);
         mCodeScanner.releaseResources();
         super.onPause();
     }
