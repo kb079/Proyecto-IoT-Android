@@ -36,11 +36,12 @@ public class ProfileFragment extends Fragment {
         //TextView proveedores = (TextView) vista.findViewById(R.id.proveedores);
         TextView nombre = binding.nombre;
         TextView email = binding.email;
-        //TextView phone = (TextView) vista.findViewById(R.id.phone);
+        TextView phone = binding.phone;
         //TextView uid = (TextView) vista.findViewById(R.id.uid);
         //proveedores.setText(usuario.getProviderData().toString());
         nombre.setText(usuario.getDisplayName());
         email.setText(usuario.getEmail());
+        phone.setText(usuario.getPhoneNumber());
 
         binding.btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

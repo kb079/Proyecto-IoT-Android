@@ -52,6 +52,11 @@ public class LoginActivity extends AppCompatActivity {
                     AuthUI.getInstance().createSignInIntentBuilder()
                             .setAvailableProviders(providers)
                             .setIsSmartLockEnabled(false)
+                            .setTheme(R.style.FirebaseUI_Text)
+                            .setTheme(R.style.FirebaseUI_Text_Link)
+                            .setTheme(R.style.FirebaseUI_TextInputEditText)
+                            .setTheme(R.style.LoginTheme)
+                            .setLogo(R.drawable.app_icon_login)
                             .build(),
                     RC_SIGN_IN);
 

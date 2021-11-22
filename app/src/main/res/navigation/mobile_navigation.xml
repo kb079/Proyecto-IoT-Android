@@ -8,19 +8,19 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.proyectoapp.ui.home.HomeFragment"
-        android:label="@string/menu_fridges"
+        android:label=""
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.proyectoapp.ui.profile.ProfileFragment"
-        android:label="@string/menu_profile"
+        android:label=""
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_log_out"
         android:name="com.example.proyectoapp.ui.about.AboutFragment"
-        android:label="@string/menu_about"
+        android:label=""
         tools:layout="@layout/fragment_about" />
 
     <fragment
