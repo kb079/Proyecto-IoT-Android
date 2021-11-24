@@ -1,8 +1,12 @@
 package com.example.proyectoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -16,12 +20,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectoapp.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static ActivityMainBinding binding;
-
     public static NavController navController;
 
     @Override
@@ -37,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_log_out)
+                R.id.nav_home, R.id.nav_profile, R.id.nav_about)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
     }
+
 
     public NavController findNavController(@NonNull Fragment fragment) {
         Fragment findFragment = fragment;

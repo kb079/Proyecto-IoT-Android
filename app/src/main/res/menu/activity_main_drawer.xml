@@ -10,14 +10,15 @@
             android:title="@string/menu_fridges"
             android:visible="true" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/usuario_icon_menu"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_log_out"
+            android:id="@+id/nav_about"
             android:icon="@drawable/acerca_de_icon_menu"
             android:title="@string/menu_about" />
         <item
+            android:id="@+id/nav_log_out"
             android:icon="@drawable/cerrar_sesion_icon_menu"
             android:title="@string/menu_log_out" />
     </group>

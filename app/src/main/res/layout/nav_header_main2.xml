@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/app_icon_horizontal" />
+            app:srcCompat="@drawable/app_icon_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
