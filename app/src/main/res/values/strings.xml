@@ -32,4 +32,5 @@
 
     <string name="no_neveras">Parece que no tienes ninguna nevera todavía. ¿Por qué no agregas una?</string>
     <string name="menu_addFridge">Añadir nevera</string>
+    <string name="food_list">Lista de Alimentos</string>
 </resources>

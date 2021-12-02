@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.proyectoapp">
+    package="com.myfridge.app">
 
     <uses-permission android:name="android.permission.CAMERA"/>
 
@@ -12,25 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoApp">
         <activity
-            android:name=".ScannerActivity">
+            android:name="com.myfridge.app.ScannerActivity">
 
         </activity>
         <activity
-            android:name=".ui.fridges.FridgesListFragment"
-            android:exported="true"
-            android:label="@string/title_activity_fridges_list"
-            android:theme="@style/Theme.ProyectoApp.NoActionBar"
-             />
-        <activity
-            android:name=".MainActivity"
+            android:name="com.myfridge.app.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ProyectoApp.NoActionBar" />
         <activity
-            android:name=".PruebaNotificaciones"
+            android:name="com.myfridge.app.PruebaNotificaciones"
             android:label="Demo notificaciones" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.myfridge.app.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
