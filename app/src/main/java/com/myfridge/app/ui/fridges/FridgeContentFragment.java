@@ -1,5 +1,6 @@
 package com.myfridge.app.ui.fridges;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.myfridge.app.MainActivity;
 import com.myfridge.app.R;
+import com.myfridge.app.ScannerActivity;
 import com.myfridge.app.databinding.FragmentContentfridgeBinding;
 import com.myfridge.app.manager.fridge.Item;
 import com.myfridge.app.manager.fridge.ItemAdapter;
@@ -32,6 +34,10 @@ public class FridgeContentFragment extends Fragment {
 
         binding = FragmentContentfridgeBinding.inflate(getLayoutInflater(), container, false);
         View root = binding.getRoot();
+
+        binding.fabScannerAddItem.setOnClickListener(view ->
+                startActivity(new Intent(view.getContext(), ScannerActivity.class))
+        );
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override

@@ -1,11 +1,14 @@
 package com.myfridge.app.manager.fridge;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myfridge.app.ScannerActivity;
+import com.myfridge.app.databinding.FragmentContentfridgeBinding;
 import com.myfridge.app.databinding.FridgesItemBinding;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> {
 
     public class ItemHolder extends RecyclerView.ViewHolder {
         FridgesItemBinding binding;
+
 
         public ItemHolder(FridgesItemBinding b){
             super(b.getRoot());

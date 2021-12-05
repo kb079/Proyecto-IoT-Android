@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DatePicker" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:datePickerStyle">@android:style/Widget.DatePicker</item>
+        <item name="colorAccent">@color/blue_primary</item>
+    </style>
+</resources>

@@ -30,10 +30,6 @@ public class HomeFragment extends Fragment {
 
         binding.Bienvenida.setText("BIENVENIDO " +arr[0].toUpperCase());
 
-        binding.fab2.setOnClickListener(view ->
-                startActivity(new Intent(view.getContext(), ScannerActivity.class))
-        );
-
         return root;
     }
 
