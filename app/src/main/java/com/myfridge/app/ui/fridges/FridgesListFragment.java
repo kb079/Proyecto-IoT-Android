@@ -29,9 +29,6 @@ public class FridgesListFragment extends Fragment {
     private FragmentFridgelistBinding binding;
     private FridgeAdapter adaptador;
 
-    //TODO
-    public String currentFridgeUID;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -42,7 +39,6 @@ public class FridgesListFragment extends Fragment {
 
         return root;
     }
-
 
     public void initList(){
 
@@ -91,7 +87,6 @@ public class FridgesListFragment extends Fragment {
                 }
             }
         });
-
     }
 
     public void openAddFridgeFr(){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Fridge {
 
+    private int id;
     private String name;
     private int temp;
     private boolean opened;
@@ -13,7 +14,8 @@ public class Fridge {
 
     public Fridge(){ }
 
-    public Fridge(String name, int temp, boolean opened, Location loc){
+    public Fridge(int id, String name, int temp, boolean opened, Location loc){
+        this.id = id;
         this.name = name;
         this.temp = temp;
         this.opened = opened;
@@ -60,5 +62,12 @@ public class Fridge {
         this.items = items;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
 

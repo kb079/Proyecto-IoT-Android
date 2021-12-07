@@ -28,6 +28,7 @@ public class FridgeAdapter extends FirestoreRecyclerAdapter<Fridge, FridgeAdapte
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", fridge.getItems());
+                bundle.putInt("fridgeID", fridge.getId());
                 MainActivity.navController.navigate(R.id.nav_contentFridge, bundle);
                 //activity.beginTransaction().replace(R.id.nav_host_fragment, a).addToBackStack(null).commit();
             }

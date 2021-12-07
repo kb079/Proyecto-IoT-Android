@@ -56,19 +56,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //test();
+       // test("fridge0");
+        //test("fridge1");
 
     }
 
-    public void test(){
+    public void test(String id){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("data/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/fridges/").document();
+        DocumentReference docRef = db.collection("data/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/fridges/").document(id);
 
-        Fridge a = new Fridge("test", 5, true, new Location(5.5, 5.6));
+        Fridge a = new Fridge(1, "test", 5, true, new Location(5.5, 5.6));
         ArrayList<Item> b = new ArrayList<Item>();
+        /*
         b.add(new Item("555", 5, new Date().getTime()));
         b.add(new Item("test 2", 4, new Date().getTime()));
         b.add(new Item("test 3", 2, new Date().getTime()));
+         */
         a.setItems(b);
 
         docRef.set(a);
