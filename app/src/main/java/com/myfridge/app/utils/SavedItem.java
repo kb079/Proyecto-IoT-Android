@@ -6,7 +6,7 @@ public class SavedItem {
     private String brand;
     private String photoURL;
     private String nutriscore;
-
+    private String barCode;
 
     public SavedItem(){ }
 
@@ -48,6 +48,14 @@ public class SavedItem {
 
     public void setNutriscore(String nutriscore) {
         this.nutriscore = nutriscore;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
 }

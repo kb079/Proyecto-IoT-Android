@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.DatePicker;
@@ -173,7 +174,9 @@ public class ScannerActivity extends AppCompatActivity {
             }
         }
 
-        if(!found) items.add(new Item(result.getText(), qty, expDate));
+        if(!found){
+            items.add(new Item(barcode, qty, expDate));
+        }
 
         String uidUsuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseFirestore.getInstance().collection("data").document(uidUsuario).collection("fridges").document("fridge" + fridgeID).update("items", items);
