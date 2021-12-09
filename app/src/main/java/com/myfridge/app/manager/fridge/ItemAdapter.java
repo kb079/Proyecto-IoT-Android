@@ -139,7 +139,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                 }
 
                 holder.binding.itemQty.setText("" + item.getQty());
-                holder.binding.group.setVisibility(View.VISIBLE);
+                //holder.binding.group.setVisibility(View.VISIBLE);
             }
         });
     }

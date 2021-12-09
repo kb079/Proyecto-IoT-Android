@@ -66,6 +66,7 @@
         android:padding="15dp"
         android:text="AÑADIR NEVERA"
         app:icon="@drawable/anyadir_icon"
+        app:rippleColor="@color/white"
         app:iconPadding="5dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,8 +80,10 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
+        app:backgroundTint="@color/blue_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/white"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <androidx.recyclerview.widget.RecyclerView

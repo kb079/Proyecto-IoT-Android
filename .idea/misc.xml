@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable-v24/menu_divider.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable/login_background.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable/user_profile_background.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -18,7 +17,6 @@
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_profile.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fridges_element.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/nav_header_main2.xml" value="0.1" />
-        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/ui_anyadir_producto.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/KB/Desktop/Proyecto-IOT/work/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/KB/Desktop/Proyecto-IOT/work/app/src/main/res/layout/activity_usuario.xml" value="0.20520833333333333" />
@@ -77,20 +75,6 @@
         <entry key="..\:/Users/KB/Desktop/proyecto2/app/src/main/res/layout/notificacion_temp_anomala.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/KB/Desktop/proyecto2/app/src/main/res/layout/prueba_notificaciones.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/KB/Desktop/proyecto2/app/src/main/res/menu/activity_main_drawer.xml" value="0.11458333333333333" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/drawable/round_bg.xml" value="0.2703125" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/activity_main.xml" value="0.12760416666666666" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/app_bar_main2.xml" value="0.264" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/autentificacion.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/content_main.xml" value="0.12760416666666666" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/escaner_cod_barras.xml" value="0.1" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/fragment_about.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/fragment_contentfridge.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/fridges_element.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/fridges_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/search_view.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/layout/ui_anyadir_producto.xml" value="0.2" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/KB/Desktop/proyecto3/app/src/main/res/menu/search_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/nacho/OneDrive/ProyectosAndroidStudio/ProyectoApp/app/src/main/res/layout/activity_main.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />

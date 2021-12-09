@@ -40,7 +40,9 @@
         android:layout_marginBottom="28dp"
         android:clickable="true"
         android:src="@drawable/escaneo_de_codigo_qr"
+        app:backgroundTint="@color/blue_primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
