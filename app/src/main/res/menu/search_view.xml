@@ -6,9 +6,10 @@
         android:id="@+id/app_bar_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_24dp"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView"
         android:iconTint="@color/white"
-        android:title="" />
+        android:title=""
+        />
 </menu>

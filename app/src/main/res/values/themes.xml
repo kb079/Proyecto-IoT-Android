@@ -76,6 +76,12 @@
         <item name="android:listDivider">@drawable/menu_divider</item>
     </style>
 
+    <style name="MySearchViewTheme" parent="Widget.AppCompat.SearchView">
+        <!-- Changes icons color -->
+        <item name="android:tint">@color/white</item>
+    </style>
+
+
 
     <style name="Theme.ProyectoApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.ProyectoApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
