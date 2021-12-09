@@ -1,0 +1,3 @@
+include ':raspberry'
+include ':app'
+rootProject.name = "Portero Automatico"
