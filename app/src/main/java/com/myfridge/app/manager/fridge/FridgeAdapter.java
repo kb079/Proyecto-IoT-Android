@@ -39,11 +39,10 @@ public class FridgeAdapter extends FirestoreRecyclerAdapter<Fridge, FridgeAdapte
     @Override
     public FridgeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new FridgeHolder(FridgesElementBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
     }
 
     public class FridgeHolder extends RecyclerView.ViewHolder {
-        FridgesElementBinding binding;
+        private FridgesElementBinding binding;
 
         public FridgeHolder(FridgesElementBinding b) {
             super(b.getRoot());

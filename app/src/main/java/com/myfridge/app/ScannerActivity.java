@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -115,7 +116,7 @@ public class ScannerActivity extends AppCompatActivity {
 
                                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                             try {
-                                                expDate= format.parse(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year).getTime();
+                                                expDate = format.parse(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year).getTime();
                                             } catch (ParseException e) {
                                                 e.printStackTrace();
                                             }
@@ -153,12 +154,6 @@ public class ScannerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         mCodeScanner.releaseResources();
-
-        //UPDATE FOOD LIST WHEN EXIT OF THE SCANNER
-        //TODO: Dont use static access
-        FridgeContentFragment.updateRecyclerItems(items);
-        //
-
         super.onDestroy();
     }
 

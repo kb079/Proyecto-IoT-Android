@@ -12,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoApp">
         <activity
-            android:name="com.myfridge.app.ScannerActivity">
-
+            android:name="com.myfridge.app.ScannerActivity"
+            android:theme="@style/Theme.ProyectoApp.NoActionBar">
         </activity>
         <activity
             android:name="com.myfridge.app.MainActivity"
@@ -21,14 +21,10 @@
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ProyectoApp.NoActionBar" />
         <activity
-            android:name="com.myfridge.app.PruebaNotificaciones"
-            android:label="Demo notificaciones" />
-        <activity
             android:name="com.myfridge.app.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

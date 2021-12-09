@@ -59,11 +59,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
         this.products = new ArrayList<SavedItem>();
     }
 
-    public void updateItemList(ArrayList<Item> items) {
+    public void updateItemList(ArrayList<Item> items2) {
         this.items.clear();
-        this.items.addAll(items);
+        this.items.addAll(items2);
         this.itemsAll.clear();
-        this.itemsAll.addAll(items);
+        this.itemsAll.addAll(items2);
         filtering = false;
         notifyUpdate();
     }
@@ -114,10 +114,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                         drawInfo(holder, itemInfo, item);
 
 
-                }else {
-                    parent.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                }
-        }}});
+                    }else {
+                        parent.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }}});
     }
 
     private void drawInfo(ItemHolder holder, SavedItem itemInfo, Item item){
@@ -147,11 +147,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     @RequiresApi(api = Build.VERSION_CODES.N)
     private String parseData(long time){
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
         TimeZone tz = TimeZone.getDefault();
         calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        Date currenTimeZone = new Date(time * 1000);
+        Date currenTimeZone = new Date(calendar.getTimeInMillis());
 
         return sdf.format(currenTimeZone);
     }
@@ -210,5 +211,4 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
         }
     }
 }
-
 

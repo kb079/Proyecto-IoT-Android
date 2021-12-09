@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,10 +24,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.myfridge.app.MainActivity;
 import com.myfridge.app.R;
 import com.myfridge.app.ScannerActivity;
 import com.myfridge.app.databinding.FragmentContentfridgeBinding;
+import com.myfridge.app.manager.fridge.Fridge;
 import com.myfridge.app.manager.fridge.Item;
 import com.myfridge.app.manager.fridge.ItemAdapter;
 
@@ -33,8 +44,8 @@ import java.util.ArrayList;
 public class FridgeContentFragment extends Fragment {
 
     private FragmentContentfridgeBinding binding;
-    private static ArrayList<Item> items;
-    private static ItemAdapter adaptador;
+    private ArrayList<Item> items;
+    private ItemAdapter adaptador;
 
     private SearchView searchBar;
 
@@ -55,7 +66,7 @@ public class FridgeContentFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        if(getArguments() != null){
+        if (getArguments() != null) {
             items = (ArrayList<Item>) this.getArguments().getSerializable("list");
             fridgeID = this.getArguments().getInt("fridgeID");
         }
@@ -65,10 +76,10 @@ public class FridgeContentFragment extends Fragment {
 
         binding.fabScannerAddItem.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
                     requestPermissionLauncher.launch(Manifest.permission.CAMERA);
-                }else{
+                } else {
                     openScanner();
                 }
             }
@@ -99,16 +110,13 @@ public class FridgeContentFragment extends Fragment {
         searchBar.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
-                    public boolean onQueryTextSubmit(String query)
-                    {
+                    public boolean onQueryTextSubmit(String query) {
                         return false;
                     }
 
                     @Override
-                    public boolean onQueryTextChange(String newText)
-                    {
+                    public boolean onQueryTextChange(String newText) {
                         adaptador.getFilter().filter(newText);
-
                         return false;
                     }
                 });
@@ -116,19 +124,38 @@ public class FridgeContentFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    public static void updateRecyclerItems(ArrayList<Item> items2){
-        items = items2;
-        adaptador.updateItemList(items);
+    public void updateRecyclerItems(ArrayList<Item> items2) {
+        items.clear();
+        items.addAll(items2);
+        adaptador.updateItemList(new ArrayList<>(items));
     }
 
-    public void loadItems(){
+    public void loadItems() {
         binding.recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
         adaptador = new ItemAdapter(items, getContext());
 
         binding.recyclerView2.setAdapter(adaptador);
+
+        //UPDATE RECYCLERVIEW IF FIELD WAS UPTADED IN DB
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("data").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("fridges").document("fridge" + fridgeID);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    items.clear();
+                    items.addAll(snapshot.toObject(Fridge.class).getItems());
+                    updateRecyclerItems(new ArrayList<>(items));
+                }
+            }
+        });
     }
 
-    private void openScanner(){
+    private void openScanner() {
         Intent intent = new Intent(getContext(), ScannerActivity.class);
         intent.putExtra("fridgeItems", items);
         intent.putExtra("fridgeID", fridgeID);

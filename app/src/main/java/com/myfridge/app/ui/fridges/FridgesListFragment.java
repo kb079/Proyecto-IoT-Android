@@ -95,7 +95,7 @@ public class FridgesListFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         if(adaptador != null)  adaptador.stopListening();
+        super.onDestroyView();
     }
 }
