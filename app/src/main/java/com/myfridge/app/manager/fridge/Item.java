@@ -7,6 +7,7 @@ public class Item implements Serializable {
     private String barCode;
     private int qty;
     private long expDate;
+    private String rfidUUID;
 
     public Item(){}
 
@@ -14,6 +15,13 @@ public class Item implements Serializable {
         this.barCode = code;
         this.qty = q;
         this.expDate = date;
+    }
+
+    public Item(String code, int q, long date, String rfid){
+        this.barCode = code;
+        this.qty = q;
+        this.expDate = date;
+        this.rfidUUID = rfid;
     }
 
     public String getBarCode() {
@@ -39,5 +47,14 @@ public class Item implements Serializable {
     public void setExpDate(long expDate) {
         this.expDate = expDate;
     }
+
+    public String getRfidUUID() {
+        return rfidUUID;
+    }
+
+    public void setRfidUUID(String rfidUUID) {
+        this.rfidUUID = rfidUUID;
+    }
+
 
 }

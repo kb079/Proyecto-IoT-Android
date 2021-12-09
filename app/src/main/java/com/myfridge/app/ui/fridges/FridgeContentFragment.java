@@ -4,9 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,6 +66,9 @@ public class FridgeContentFragment extends Fragment {
         if (getArguments() != null) {
             items = (ArrayList<Item>) this.getArguments().getSerializable("list");
             fridgeID = this.getArguments().getInt("fridgeID");
+        }else{
+            items = new ArrayList<Item>();
+            fridgeID = 0;
         }
 
         binding = FragmentContentfridgeBinding.inflate(getLayoutInflater(), container, false);

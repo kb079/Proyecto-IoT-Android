@@ -166,6 +166,7 @@ public class ScannerActivity extends AppCompatActivity {
             if(item.getBarCode().equals(barcode)){
                 item.setQty(item.getQty()+qty);
                 found = true;
+                break;
             }
         }
 
