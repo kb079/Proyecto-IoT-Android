@@ -29,36 +29,33 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+//-----------------------------------------------------------------------------------------------//
+//--------------------------------------- User Info ---------------------------------------------//
+
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        //TextView proveedores = (TextView) vista.findViewById(R.id.proveedores);
+
         TextView nombre = binding.nombre;
         TextView email = binding.email;
         TextView phone = binding.phone;
-        //TextView uid = (TextView) vista.findViewById(R.id.uid);
-        //proveedores.setText(usuario.getProviderData().toString());
+
         nombre.setText(usuario.getDisplayName());
         email.setText(usuario.getEmail());
-        phone.setText(usuario.getPhoneNumber());
+        String userPhone = usuario.getPhoneNumber();
 
-        binding.btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AuthUI.getInstance().signOut(getActivity())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent i = new Intent(getActivity(),LoginActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                        | Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(i);
-                                getActivity().finish();
-                            }
-                        });
-            }
-        });
+        if(userPhone == ""){
+            phone.setText("No hay ningun número registrado.");
+        }
+        else{
+            phone.setText(userPhone);
+        }
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
         return root;
     }
 

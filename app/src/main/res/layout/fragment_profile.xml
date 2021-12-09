@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/funcionality_text_01"
+        android:id="@+id/mail_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -55,7 +55,7 @@
         android:text="Correo:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/blue_primary"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:drawableTint="@color/blue_primary"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,21 +72,21 @@
         android:textColor="@color/blue_primary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/funcionality_text_01" />
+        app:layout_constraintTop_toBottomOf="@+id/mail_label" />
 
     <TextView
-        android:id="@+id/correo_label2"
+        android:id="@+id/phone_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:drawableLeft="@drawable/telefono_icon"
         android:drawablePadding="8dp"
         android:fontFamily="@font/montserrat"
         android:text="Teléfono:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/blue_primary"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:drawableTint="@color/blue_primary"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,23 +103,6 @@
         android:textColor="@color/blue_primary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correo_label2" />
-
-    <Button
-        android:id="@+id/btn_cerrar_sesion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:padding="15dp"
-        android:text="Cerrar sesión"
-        android:textStyle="bold"
-        app:backgroundTint="@color/black"
-        app:icon="@drawable/cerrar_sesion_icon_button"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintTop_toBottomOf="@+id/phone_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
