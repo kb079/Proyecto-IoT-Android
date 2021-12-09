@@ -81,7 +81,7 @@ public class FridgesListFragment extends Fragment {
                     //NO HAY NEVERAS
                     binding.sinNeveras.setVisibility(View.VISIBLE);
                     binding.neveras.setVisibility(View.INVISIBLE);
-                    binding.button4.setOnClickListener(view ->
+                    binding.fabAddFridge.setOnClickListener(view ->
                             openAddFridgeFr()
                     );
                 }
