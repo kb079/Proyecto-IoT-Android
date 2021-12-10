@@ -13,30 +13,35 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.tomtom.online.sdk.map.CameraFocusArea;
+import com.tomtom.online.sdk.map.MapFragment;
+import com.tomtom.online.sdk.map.MapView;
+import com.tomtom.online.sdk.map.MarkerAnchor;
+import com.tomtom.online.sdk.map.MarkerBuilder;
+import com.tomtom.online.sdk.map.OnMapReadyCallback;
+import com.tomtom.online.sdk.map.TomtomMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class SupermarketMapActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class SupermarketMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mapa;
     protected LocationManager locationManager;
-    LatLng ubicacion = new LatLng(0,0);
+    private TomtomMap tomtomMap;
+    private MapView mapView;
+
+    private final OnMapReadyCallback onMapReadyCallback =
+            new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(TomtomMap map) {
+                    //Map is ready here
+                    tomtomMap = map;
+                    tomtomMap.setMyLocationEnabled(true);
+                    //tomtomMap.collectLogsToFile(SampleApp.LOG_FILE_PATH);
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,80 +56,63 @@ public class SupermarketMapActivity extends FragmentActivity implements OnMapRea
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+       // locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
         super.onCreate(savedInstanceState);
+        mapView = new MapView(getApplicationContext());
         setContentView(R.layout.supermarket_map);// Obtenemos el mapa de forma asíncrona (notificará cuando esté listo)
-        SupportMapFragment mapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.mapa);
-        mapFragment.getMapAsync(this);
+
+        MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+        mapFragment.getAsyncMap(onMapReadyCallback);
+    }
+
+/*
+    public void loadNearbyMarkets(){
+        MarkerBuilder markerBuilder = new MarkerBuilder(position)
+                .icon(Icon.Factory.fromResources(context, R.drawable.ic_favourites))
+                .markerBalloon(new SimpleMarkerBalloon(positionToText(position)))
+                .tag("more information in tag").iconAnchor(MarkerAnchor.Bottom)
+                .decal(true); //By default is false
+        tomtomMap.addMarker(markerBuilder);
+    }
+
+ */
+    @Override
+    public void onMapReady(@NonNull TomtomMap tomtomMap) {
+        tomtomMap.centerOnMyLocation();
 
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mapa = googleMap;
-        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mapa.getUiSettings().setZoomControlsEnabled(false);
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
-            mapa.setMyLocationEnabled(false);
-            mapa.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
-            mapa.getUiSettings().setCompassEnabled(true);
-        }
-        ubicacion = new LatLng(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude(), locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
-        mapa.addMarker(new MarkerOptions()
-                .position(ubicacion)
-                .title("Mi Nevera")
-                .snippet("La nevera de mi casa")
-                .icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_compass))
-                .anchor(0.5f, 0.5f));
-        mapa.animateCamera(CameraUpdateFactory.newLatLng(ubicacion));
-        mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion, 16));
-        //mapa.setOnMapClickListener(this);
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+String.valueOf(ubicacion.latitude)+","+String.valueOf(ubicacion.longitude)+"&radius=1000&type=supermarket&key=AIzaSyCbf2JFqQU8m9wNGpUE4tRC7M8tNOqbar4";
-        //String url ="https://maps.googleapis.com/maps/api/place/textsearch/json?location="+String.valueOf(ubicacion.latitude)+","+String.valueOf(ubicacion.longitude)+"&radius=1000&type=supermarket&key=AIzaSyCbf2JFqQU8m9wNGpUE4tRC7M8tNOqbar4";
-        JsonObjectRequest request = new JsonObjectRequest(url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if (null != response) {
-                            //handle your response
-                            Log.i("HTTPRequest",response.toString());
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        queue.add(request);
-
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
     }
 
     @Override
-    public void onLocationChanged(@NonNull Location location) {
-
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
     }
 
     @Override
-    public void onLocationChanged(@NonNull List<Location> locations) {
-
+    public void onPause() {
+        mapView.onPause();
+        super.onPause();
     }
 
     @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
+    public void onStop() {
+        mapView.onStop();
+        super.onStop();
     }
 
     @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
+    public void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
     }
+
+
 }

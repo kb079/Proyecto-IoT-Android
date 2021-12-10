@@ -2,6 +2,7 @@ package com.myfridge.app.manager.fridge;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.icu.util.TimeZone;
@@ -130,9 +131,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
 
                 holder.binding.itemName.setText(itemInfo.getName());
                 holder.binding.itemBrand.setText(itemInfo.getBrand());
-                holder.binding.itemName4.setText(itemInfo.getNutriscore());
+
+                parseNutriscore(holder, itemInfo.getNutriscore());
                 if(item.getExpDate() == 0){
-                    holder.binding.itemExpDate.setText("???");
+                    holder.binding.itemExpDate.setText("");
                 }else{
                     holder.binding.itemExpDate.setText(parseData(item.getExpDate()));
                 }
@@ -141,6 +143,35 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                 //holder.binding.group.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void parseNutriscore(ItemHolder holder, String score){
+
+        if(score == null) return;
+
+        int color = R.color.gray;
+
+        switch(score){
+            case "a":
+                color = R.color.scoreA;
+                break;
+            case "b":
+                color = R.color.scoreB;
+                break;
+            case "c":
+                color = R.color.scoreC;
+                break;
+            case "d":
+                color = R.color.scoreD;
+                break;
+            case "e":
+                color = R.color.scoreE;
+                break;
+        }
+        holder.binding.nutriscore.setBackgroundTintList(context.getResources().getColorStateList(color));
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

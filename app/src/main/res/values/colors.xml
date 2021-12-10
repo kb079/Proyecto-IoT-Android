@@ -8,4 +8,11 @@
     <color name="black">#333333</color>
     <color name="white">#F7F1F1</color>
     <color name="fui_bgEmail">@color/blue_primary</color>
+
+    <color name="gray">#A0A0A0</color>
+    <color name="scoreE">#EF4020</color>
+    <color name="scoreD">#EF4020</color>
+    <color name="scoreC">#CFD133</color>
+    <color name="scoreB">#45AE41</color>
+    <color name="scoreA">#1C8B24</color>
 </resources>
