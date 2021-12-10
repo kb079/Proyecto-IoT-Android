@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@color/blue_primary"
+        android:drawable="@color/blue_secundary"
         android:left="18dp"
         android:right="18dp" />
 </layer-list>

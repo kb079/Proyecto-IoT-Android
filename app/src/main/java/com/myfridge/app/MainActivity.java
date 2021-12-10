@@ -152,6 +152,10 @@ public class MainActivity extends AppCompatActivity {
     public void viewFridges(View v) {
         navController.navigate(R.id.nav_fridgesList);
     }
+    public void viewSupermarketMap(View v) {
+        Intent i = new Intent(this, SupermarketMapActivity.class);
+        startActivity(i);
+    }
 
 //-----------------------------------------------------------------------------------------------//
 //--------------------------------------- Cerrar Sesión -----------------------------------------//
