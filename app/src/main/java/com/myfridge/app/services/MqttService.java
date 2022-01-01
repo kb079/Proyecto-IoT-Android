@@ -89,7 +89,7 @@ public class MqttService extends Service implements MqttCallback  {
             public void run() {
                 connectMqtt();
             }
-        }, 60000); // Al minuto vuelve a establecer conexion con MQTT.
+        }, 5000); // Al minuto vuelve a establecer conexion con MQTT.
     }
 
     //---------------------------------------------------------------//
@@ -123,7 +123,7 @@ public class MqttService extends Service implements MqttCallback  {
 
                             Item rfidItem = null;
                             for (Item item: items) {
-                                if(item.getRfidUUID() != null){
+                                if(!item.getRfidUUID().isEmpty() && item.getRfidUUID().equalsIgnoreCase(data[0])){
                                     rfidItem = item;
                                     break;
                                 }
@@ -182,6 +182,17 @@ public class MqttService extends Service implements MqttCallback  {
         suscribeMqtt(topicRFID, this);
 
         notifications = new Notifications(getApplicationContext());
+
+        Log.d(TAG, "Conexión perdida");
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(!client.isConnected()){
+                    connectMqtt();
+                }
+
+            }
+        }, 5000); // Al minuto vuelve a establecer conexion con MQTT.
         super.onStart(intent, startId);
     }
 
