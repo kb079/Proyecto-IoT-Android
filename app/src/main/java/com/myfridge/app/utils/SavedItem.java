@@ -1,6 +1,8 @@
 package com.myfridge.app.utils;
 
-public class SavedItem {
+import java.io.Serializable;
+
+public class SavedItem implements Serializable {
 
     private String name;
     private String brand;

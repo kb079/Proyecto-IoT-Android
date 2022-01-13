@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.CallLog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.material.snackbar.Snackbar;
 import com.myfridge.app.supermarkets.Result;
 import com.myfridge.app.supermarkets.Root;
 import com.tomtom.online.sdk.common.location.LatLng;
@@ -41,7 +39,6 @@ import org.json.JSONObject;
 public class SupermarketMapActivity extends FragmentActivity implements LocationUpdateListener, OnMapReadyCallback {
 
     private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 0;
-    protected LocationManager locationManager;
     private TomtomMap tomtomMap;
     private Location userLocation;
     private MapView mapView;

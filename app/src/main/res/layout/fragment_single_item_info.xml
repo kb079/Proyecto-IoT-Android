@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/nutriscore2"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_bg"
+        android:backgroundTint="@color/gray"
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintBottom_toBottomOf="@+id/nutriscore_label3"
+        app:layout_constraintStart_toEndOf="@+id/nutriscore_label3"
+        app:layout_constraintTop_toTopOf="@+id/nutriscore_label3" />
+
     <ImageView
         android:id="@+id/imagenProducto"
         android:layout_width="169dp"
@@ -85,9 +97,22 @@
         android:text="Cantidad:"
         android:textColor="@color/blue_primary"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expired_date_label" />
+
+    <TextView
+        android:id="@+id/nutriscore_label3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Nutriscore:"
+        android:textColor="@color/blue_primary"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expired_date_label"
+        app:layout_constraintTop_toBottomOf="@+id/quantity_label"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView

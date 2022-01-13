@@ -41,4 +41,10 @@
         android:label="@string/food_list"
         tools:layout="@layout/fragment_contentfridge" />
 
+    <fragment
+        android:id="@+id/nav_singleItem"
+        android:name="com.myfridge.app.ui.fridges.SingleItemFragment"
+        android:label="@string/infoProducto"
+        tools:layout="@layout/fragment_single_item_info" />
+
 </navigation>

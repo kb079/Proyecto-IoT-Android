@@ -1,5 +1,7 @@
 package com.myfridge.app.manager.fridge;
 
+import static com.myfridge.app.utils.Utils.parseData;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +10,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.icu.util.TimeZone;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -44,6 +47,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.Result;
+import com.myfridge.app.MainActivity;
 import com.myfridge.app.R;
 import com.myfridge.app.databinding.FridgesItemBinding;
 import com.myfridge.app.utils.SavedItem;
@@ -121,6 +125,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, @SuppressLint("RecyclerView") int position) {
         Item item = items.get(position);
+
+
 
         //---------------------------------------------------------------------------------------//
         //--------------------------------- Selecionar ITEMS ------------------------------------//
@@ -253,6 +259,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                         parent.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
                     }
                 }}});
+
     }
 
     //-------------------------------------------------------------------------------------------//
@@ -324,6 +331,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                 //holder.binding.group.setVisibility(View.VISIBLE);
             }
         });
+        //---------------------------------------------------------------------------------------//
+        //--------------------------------- Visualizar ITEMS ------------------------------------//
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("itemInfo", itemInfo);
+                bundle.putSerializable("item", item);
+                MainActivity.navController.navigate(R.id.nav_singleItem, bundle);
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -355,18 +374,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private String parseData(long time){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
-        TimeZone tz = TimeZone.getDefault();
-        calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        Date currenTimeZone = new Date(calendar.getTimeInMillis());
-
-        return sdf.format(currenTimeZone);
-    }
 
     @Override
     public int getItemCount() {
