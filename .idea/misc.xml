@@ -3,21 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable-mdpi/border.xml" value="0.1" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable-mdpi/ic_check.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable/login_background.xml" value="0.1" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable/round_bg.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/drawable/user_profile_background.xml" value="0.1" />
-        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/activity_usuario.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/app_bar_main2.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/autentificacion.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/escaner_cod_barras.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_about.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_addfridge.xml" value="0.25" />
-        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_contentfridge.xml" value="0.16530797101449277" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_contentfridge.xml" value="0.12921348314606743" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_fridgelist.xml" value="0.1" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fragment_profile.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fridges_element.xml" value="0.16530797101449277" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/fridges_item.xml" value="0.1037037037037037" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/layout/nav_header_main2.xml" value="0.1" />
         <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Adria/PROYECTO IoT - Nevera Inteligente/ProyectoApp_IoT_1_3/app/src/main/res/menu/delete_view.xml" value="0.1037037037037037" />
         <entry key="..\:/Users/KB/Desktop/Proyecto-IOT/work/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/KB/Desktop/Proyecto-IOT/work/app/src/main/res/layout/activity_usuario.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/KB/Desktop/Proyecto-IOT/work/app/src/main/res/layout/app_bar_main2.xml" value="0.20520833333333333" />

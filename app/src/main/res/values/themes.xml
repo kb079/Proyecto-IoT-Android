@@ -24,7 +24,21 @@
     <style name="Theme.ProyectoApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_close</item>
+        <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
     </style>
+
+    <style name="Base.Widget.AppCompat.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">@color/blue_dark</item>
+        <item name="height">56dp</item>
+    </style>
+
+    <!-- ActionButton -->
+    <style name="DotsDarkTheme" parent="@style/Widget.AppCompat.ActionButton.Overflow" >
+        <item name="android:tint">@color/blue_primary</item>
+    </style>
+
 
     <!-- Estilo del Login -->
     <style name="LoginTheme" parent="FirebaseUI">

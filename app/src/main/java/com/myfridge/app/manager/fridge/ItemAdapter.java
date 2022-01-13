@@ -2,6 +2,7 @@ package com.myfridge.app.manager.fridge;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -9,30 +10,50 @@ import android.icu.util.TimeZone;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.zxing.Result;
 import com.myfridge.app.R;
 import com.myfridge.app.databinding.FridgesItemBinding;
 import com.myfridge.app.utils.SavedItem;
+
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> implements Filterable {
 
@@ -44,6 +65,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     private ViewGroup parent;
 
     private boolean filtering;
+
+    //Selecionar y eliminar ITEMS
+    boolean isEnable = false;
+    boolean isSelectAll = false;
+    ArrayList<Item> selectList = new ArrayList<>();
+
+    ItemViewModel itemViewModel;
+
 
     public ItemAdapter(ArrayList<Item> itemList, Context c) {
         this.items = itemList;
@@ -58,6 +87,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
         this.context = c;
         this.products = new ArrayList<SavedItem>();
     }
+
 
     public void updateItemList(ArrayList<Item> items2) {
         this.items.clear();
@@ -81,12 +111,117 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.parent = parent;
+
+        //Selecionar y eliminar ITEMS
+        itemViewModel = ViewModelProviders.of((FragmentActivity) context).get(ItemViewModel.class);
+
         return new ItemHolder(FridgesItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, @SuppressLint("RecyclerView") int position) {
         Item item = items.get(position);
+
+        //---------------------------------------------------------------------------------------//
+        //--------------------------------- Selecionar ITEMS ------------------------------------//
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View view){
+                if(!isEnable){
+                    ActionMode.Callback callback = new ActionMode.Callback() {
+                        @Override
+                        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                            MenuInflater menuInflater = actionMode.getMenuInflater();
+                            menuInflater.inflate(R.menu.delete_view, menu);
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                            isEnable = true;
+                            ClickItem(holder);
+                            itemViewModel.getText().observe((LifecycleOwner) context
+                                    , new Observer<String>() {
+                                        @Override
+                                        public void onChanged(String s) {
+                                            actionMode.setTitle(String.format("%s Seleccionados", s));
+                                        }
+                                    });
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                            int id = menuItem.getItemId();
+
+                            switch (id){
+
+                                //Al pulsar eliminar
+                                case R.id.app_bar_delete:
+                                    for(Item item : selectList ){
+                                        items.remove(item);
+                                    }
+                                    actionMode.finish();
+
+                                    Toast.makeText(context, "Se han eliminado los alimentos",
+                                            Toast.LENGTH_SHORT).show();
+                                    break;
+
+                                //Al pulsar selecionar todos
+                                case R.id.app_bar_select_all:
+                                    if (selectList.size() == items.size()){
+                                        isSelectAll = false;
+                                        selectList.clear();
+                                    }else{
+                                        isSelectAll = true;
+                                        selectList.clear();
+                                        selectList.addAll(items);
+                                    }
+                                    itemViewModel.setText(String.valueOf(selectList.size()));
+                                    notifyDataSetChanged();
+                                    break;
+                            }
+                            return true;
+                        }
+
+                        @Override
+                        public void onDestroyActionMode(ActionMode actionMode) {
+                            isEnable = false;
+                            isSelectAll = false;
+                            selectList.clear();
+                            notifyDataSetChanged();
+                        }
+                    };
+                    ((AppCompatActivity) view.getContext()).startSupportActionMode( callback );
+                }else{
+                    ClickItem(holder);
+                }
+                return true;
+            }
+        });
+
+        holder.itemView.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(isEnable){
+                    ClickItem(holder);
+                }
+            }
+        });
+
+        if (isSelectAll){
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.itemView.setBackgroundColor(Color.LTGRAY);
+        }else{
+            holder.checkBox.setVisibility(View.GONE);
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
+
+
+        //---------------------------------------------------------------------------------------//
+        //---------------------------------------------------------------------------------------//
+
 
         if(filtering){
             for (SavedItem product: products) {
@@ -120,6 +255,52 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                 }}});
     }
 
+    //-------------------------------------------------------------------------------------------//
+    //----------------------------- Selecionar y eliminar ITEMS ---------------------------------//
+
+
+    private void ClickItem(ItemHolder holder) {
+        Item item = items.get(holder.getAdapterPosition());
+
+
+        if(holder.checkBox.getVisibility() == View.GONE){
+            //Item no seleccionado
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.itemView.setBackgroundColor(Color.LTGRAY);
+            selectList.add(item);
+
+        }else{
+            //Item seleccionado
+            holder.checkBox.setVisibility(View.GONE);
+            holder.itemView.setBackgroundColor(Color.WHITE);
+            selectList.remove(item);
+        }
+
+        itemViewModel.setText(String.valueOf(selectList.size()));
+    }
+
+
+    /*public void eliminarProducto(Result result){
+
+        //Codigo de barra
+        String barcode = result.getText();
+        //ID del usuario
+        String uidUsuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //ID de la nevera
+        int fridgeID = 0;
+
+        FirebaseFirestore.getInstance().collection("data").document(uidUsuario).collection("fridges").document("fridge" + fridgeID);
+
+                //.document("items", barcode);
+
+        Toast.makeText(context, "Eliminado de tu nevera", Toast.LENGTH_SHORT).show();
+    }*/
+
+
+
+    //---------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------//
+
     private void drawInfo(ItemHolder holder, SavedItem itemInfo, Item item){
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -134,7 +315,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
 
                 parseNutriscore(holder, itemInfo.getNutriscore());
                 if(item.getExpDate() == 0){
-                    holder.binding.itemExpDate.setText("");
+                    holder.binding.itemExpDate.setText("Sin fecha de caducidad");
                 }else{
                     holder.binding.itemExpDate.setText(parseData(item.getExpDate()));
                 }
@@ -233,11 +414,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     };
 
     public class ItemHolder extends RecyclerView.ViewHolder {
+
         private FridgesItemBinding binding;
+        ImageView checkBox;
 
         public ItemHolder(FridgesItemBinding b) {
             super(b.getRoot());
             binding = b;
+            checkBox = b.getRoot().findViewById(R.id.check_box);
         }
     }
 }

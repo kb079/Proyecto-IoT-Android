@@ -28,10 +28,10 @@
     <string name="menu_notifications">Notificaciones</string>
     <string name="menu_configuration">Configuración</string>
     <string name="menu_log_out">Cerrar Sesión</string>
-    <string name="menu_fridgestList">Lista de tus neveras</string>
+    <string name="menu_fridgestList">Neveras</string>
 
     <string name="no_neveras">Parece que no tienes ninguna nevera todavía. ¿Por qué no agregas una?</string>
     <string name="menu_addFridge">Añadir nevera</string>
-    <string name="food_list">Lista de Alimentos</string>
+    <string name="food_list">Alimentos</string>
     <string name="your_food_list">TUS ALIMENTOS</string>
 </resources>

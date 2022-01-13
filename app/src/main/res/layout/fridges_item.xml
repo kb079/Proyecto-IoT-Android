@@ -2,15 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:background="@color/white">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/itemPhoto"
-        android:layout_width="155dp"
-        android:layout_height="126dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:civ_border_color="@color/blue_primary"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -20,24 +26,21 @@
         android:layout_width="182dp"
         android:layout_height="22dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="142dp"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/black"
+        android:textColor="#007EAF"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/itemBrand"
         android:layout_width="183dp"
         android:layout_height="20dp"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +53,7 @@
         android:fontFamily="@font/montserrat"
         android:text="Cargando..."
         android:textAlignment="textStart"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,23 +63,22 @@
         android:id="@+id/nutriscore"
         android:layout_width="17dp"
         android:layout_height="17dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/round_bg"
         android:backgroundTint="@color/gray"
         android:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.477" />
+        app:layout_constraintEnd_toEndOf="@+id/itemExpDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/itemExpDate"
+        app:layout_constraintTop_toBottomOf="@+id/itemExpDate"
+        app:layout_constraintVertical_bias="0.110000014" />
 
     <TextView
         android:id="@+id/itemQty"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/round_bg"
         android:fontFamily="@font/montserrat"
         android:paddingTop="8dp"
@@ -84,29 +86,33 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textDirection="firstStrongRtl"
-        android:textSize="20sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/itemPhoto"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/itemPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/itemExpDate"
+        app:layout_constraintVertical_bias="0.88" />
+
+    <ImageView
+        android:id="@+id/check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nutriscore"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/menu_divider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_check_box" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="itemQty,itemBrand,itemExpDate,itemName,nutriscore,textView11,itemPhoto" />
+        app:constraint_referenced_ids="itemQty,itemBrand,itemExpDate,itemName,nutriscore,itemPhoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

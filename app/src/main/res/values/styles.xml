@@ -8,4 +8,8 @@
         <item name="backgroundTint">@color/blue_primary</item>
         <item name="tint">@color/white</item>
     </style>
+    <style name="ActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

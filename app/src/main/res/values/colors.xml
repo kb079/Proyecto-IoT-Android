@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Azules -->
     <color name="blue_primary">#248AB5</color>
     <color name="blue_secundary">#4B7993</color>
-    <color name="blue_dark">#172D37</color>
+    <color name="blue_dark">#0A4968</color>
+    <color name="blue_light">#5CBEEC</color>
+
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
+
+    <!-- Colores Básicos -->
     <color name="black">#333333</color>
     <color name="white">#F7F1F1</color>
+    <color name="red">#CA1414</color>
+    <color name="gray">#A0A0A0</color>
+
+    <!-- Boton Inicio sesion -->
     <color name="fui_bgEmail">@color/blue_primary</color>
 
-    <color name="gray">#A0A0A0</color>
+    <!-- Colores Nutriscore -->
     <color name="scoreE">#EF4020</color>
     <color name="scoreD">#EF4020</color>
     <color name="scoreC">#CFD133</color>
