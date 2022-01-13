@@ -7,8 +7,12 @@
 #include <MFRC522.h>
 #include <M5Stack.h>
 
+int value = 0;
+bool pressed = false;
+
 #define RST_PIN 2 //Pin 9 para el reset del RC522 no es necesario conctarlo
 #define SS_PIN 21 //Pin 10 para el SS (SDA) del RC522
+#define WAKEUP_PIN 5 // Pin 36 para despertar a la placa cuando se encienda la nevera
 
 MFRC522 mfrc522(SS_PIN, RST_PIN); ///Creamos el objeto para el RC522
 MFRC522::StatusCode status; //variable to get card status
@@ -46,7 +50,153 @@ unsigned long previousMillis = 0;
 
 int count = 0;
 
+byte ActualUID[7]; //almacenará el código del Tag leído
+byte Alimento1[7] = {0x04, 0x62, 0x49, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 1
+byte Alimento2[7] = {0x04, 0x69, 0x48, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 2
+byte Alimento3[7] = {0x04, 0x6D, 0x48, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 1
+byte Alimento4[7] = {0x04, 0x71, 0x48, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 1
+
+#include <esp_task_wdt.h>
+#define TWDT_TIMEOUT_S 1000
+#define TASK_RESET_PERIOD_S 2
+
+//Declaracion manejadores de los semaforos binarios
+SemaphoreHandle_t xSemaphore1 = NULL;
+SemaphoreHandle_t xSemaphore2 = NULL;
+SemaphoreHandle_t xSemaphore3 = NULL;
+
+//factor de conversion de microsegundos a segundos
+#define uS_TO_S_FACTOR 1000000 //se salva como 32bits
+//tiempo que el ESP32 estara dormido (en segundos)
+#define TIME_TO_SLEEP 60
+//#define uS_TO_S_FACTOR 1000000ULL //se salva como 64bits
+//#define TIME_TO_SLEEP 5ULL
+
+#define BUTTON_PIN_BITMASK 0x1000000000 // IO 36 activa
+
 //-----------------------------------------------------------------------------------------------------------
+
+void tarea1(void *pvParameter)
+{
+  while (1) {
+
+    // call poll() regularly to allow the library to send MQTT keep alives which
+    // avoids being disconnected by the broker
+    mqttClient.poll();
+
+    // avoid having delays in loop, we'll use the strategy from BlinkWithoutDelay
+    // see: File -> Examples -> 02.Digital -> BlinkWithoutDelay for more info
+    unsigned long currentMillis = millis();
+
+
+    // Revisamos si hay nuevas tarjetas presentes
+    if ( mfrc522.PICC_IsNewCardPresent())
+    {
+      //Seleccionamos una tarjeta
+      if ( mfrc522.PICC_ReadCardSerial())
+      {
+        // Enviamos serialemente su UID
+        Serial.println();
+        Serial.print(F("ALIMENTO:"));
+        M5.Lcd.setCursor(0, 30);
+        M5.Lcd.fillScreen(NEGRO);
+        M5.Lcd.setTextColor(AZUL);
+        M5.Lcd.print(F("Codigo:"));
+
+        for (byte i = 0; i < mfrc522.uid.size; i++) {
+          MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
+          Serial.println(mfrc522.PICC_GetTypeName(piccType));
+          Serial.println(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+          M5.Lcd.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+          Serial.println(mfrc522.uid.uidByte[i], HEX);
+          M5.Lcd.print(mfrc522.uid.uidByte[i], HEX);
+
+          ActualUID[i] = mfrc522.uid.uidByte[i];
+        }
+
+        Serial.print(" ");
+        M5.Lcd.print(" ");
+        //comparamos los UID para determinar si es uno de nuestros usuarios
+
+        if (compareArray(ActualUID, Alimento1, 7) || compareArray(ActualUID, Alimento2, 7) || compareArray(ActualUID, Alimento3, 7) || compareArray(ActualUID, Alimento4, 7)) {
+          Serial.println("Alimento reconocido");
+          M5.Lcd.setCursor(0, 60);
+          M5.Lcd.setTextColor(VERDE);
+          M5.Lcd.println("Alimento reconocido");
+          si();
+
+          mqttClient.beginMessage(topic);
+          for (byte i = 0; i < mfrc522.uid.size; i++) {
+
+            mqttClient.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : "");
+            mqttClient.print(mfrc522.uid.uidByte[i], HEX);
+          }
+
+
+          if (currentMillis - previousMillis >= interval) {
+            // save the last time a message was sent
+            previousMillis = currentMillis;
+
+            Serial.print("Sending message to topic: ");
+            Serial.println(topic);
+            Serial.print("Alimento");
+            Serial.println(count);
+            Serial.println();
+          }
+        }
+        else
+        { Serial.println("Alimento no reconocido");
+          M5.Lcd.setCursor(0, 60);
+          M5.Lcd.setTextColor(ROJO);
+          M5.Lcd.println("No reconocido, escanea codigo con la app");
+          no();
+        }
+        if (compareArray(ActualUID, Alimento1, 7))
+        {
+          mqttClient.print(";");
+          mqttClient.print(1639436400000);
+          mqttClient.print(";");
+          mqttClient.print(3033490004521 );
+          mqttClient.endMessage();
+        }
+        else if (compareArray(ActualUID, Alimento2, 7))
+        {
+          mqttClient.print(";");
+          mqttClient.print(1645743600000);
+          mqttClient.print(";");
+          mqttClient.print(5410188031072);
+          mqttClient.endMessage();
+        }
+        else if (compareArray(ActualUID, Alimento3, 7))
+        {
+          mqttClient.print(";");
+          mqttClient.print(1651442400000);
+          mqttClient.print(";");
+          mqttClient.print(87157215);
+          mqttClient.endMessage();
+        }
+        else if (compareArray(ActualUID, Alimento4, 7))
+        {
+          mqttClient.print(";");
+          mqttClient.print(1705273200000);
+          mqttClient.print(";");
+          mqttClient.print(8076809513722 );
+          mqttClient.endMessage();
+        }
+
+        // Terminamos la lectura de la tarjeta tarjeta actual
+        mfrc522.PICC_HaltA();
+        M5.Lcd.setCursor(30, 140);
+        M5.Lcd.setTextColor(BLANCO);
+        M5.Lcd.println("PASE OTRO ALIMENTO");
+      }
+    }
+    if(M5.BtnB.read()) pressed = true;
+    if(pressed == 1) esp_deep_sleep_start(); //duerme al ESP32 (modo SLEEP)
+    //vTaskDelay(3000 / portTICK_PERIOD_MS);
+
+  }
+}
 
 void setup() {
 
@@ -101,131 +251,24 @@ void setup() {
   M5.Lcd.setTextColor(BLANCO);
   M5.Lcd.println("PASE ALIMENTO");
 
+
+
+  xTaskCreatePinnedToCore(&tarea1, "tarea1", 4096, NULL, 1, NULL, 0);
+
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_39, 0); //1 = High, 0 = Low
+  
+    
+  
+
+
 }
 
 
-byte ActualUID[7]; //almacenará el código del Tag leído
-byte Alimento1[7] = {0x04, 0x62, 0x49, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 1
-byte Alimento2[7] = {0x04, 0x69, 0x48, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 2
-byte Alimento3[7] = {0x04, 0x6D, 0x48, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 1
-byte Alimento4[7] = {0x04, 0x71, 0x48, 0x22, 0xEE, 0x64, 0x80} ; //código del usuario 1
+
 
 //-----------------------------------------------------------------------------------------------------------
 
-void loop() {
-  // call poll() regularly to allow the library to send MQTT keep alives which
-  // avoids being disconnected by the broker
-  mqttClient.poll();
-
-  // avoid having delays in loop, we'll use the strategy from BlinkWithoutDelay
-  // see: File -> Examples -> 02.Digital -> BlinkWithoutDelay for more info
-  unsigned long currentMillis = millis();
-
-
-  // Revisamos si hay nuevas tarjetas presentes
-  if ( mfrc522.PICC_IsNewCardPresent())
-  {
-    //Seleccionamos una tarjeta
-    if ( mfrc522.PICC_ReadCardSerial())
-    {
-      // Enviamos serialemente su UID
-      Serial.println();
-      Serial.print(F("ALIMENTO:"));
-      M5.Lcd.setCursor(0, 30);
-      M5.Lcd.fillScreen(NEGRO);
-      M5.Lcd.setTextColor(AZUL);
-      M5.Lcd.print(F("Codigo:"));
-
-      for (byte i = 0; i < mfrc522.uid.size; i++) {
-        MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
-        Serial.println(mfrc522.PICC_GetTypeName(piccType));
-        Serial.println(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-        M5.Lcd.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-        Serial.println(mfrc522.uid.uidByte[i], HEX);
-        M5.Lcd.print(mfrc522.uid.uidByte[i], HEX);
-
-        ActualUID[i] = mfrc522.uid.uidByte[i];
-      }
-
-      Serial.print(" ");
-      M5.Lcd.print(" ");
-      //comparamos los UID para determinar si es uno de nuestros usuarios
-
-      if (compareArray(ActualUID, Alimento1, 7) || compareArray(ActualUID, Alimento2, 7) || compareArray(ActualUID, Alimento3, 7) || compareArray(ActualUID, Alimento4, 7)) {
-        Serial.println("Alimento reconocido");
-        M5.Lcd.setCursor(0, 60);
-        M5.Lcd.setTextColor(VERDE);
-        M5.Lcd.println("Alimento reconocido");
-        si();
-
-        mqttClient.beginMessage(topic);
-        for (byte i = 0; i < mfrc522.uid.size; i++) {
-
-          mqttClient.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : "");
-          mqttClient.print(mfrc522.uid.uidByte[i], HEX);
-        }
-
-
-        if (currentMillis - previousMillis >= interval) {
-          // save the last time a message was sent
-          previousMillis = currentMillis;
-
-          Serial.print("Sending message to topic: ");
-          Serial.println(topic);
-          Serial.print("Alimento");
-          Serial.println(count);
-          Serial.println();
-        }
-      }
-      else
-      { Serial.println("Alimento no reconocido");
-        M5.Lcd.setCursor(0, 60);
-        M5.Lcd.setTextColor(ROJO);
-        M5.Lcd.println("No reconocido, escanea codigo con la app");
-        no();
-      }
-      if (compareArray(ActualUID, Alimento1, 7))
-      {
-        mqttClient.print(";");
-        mqttClient.print(1639436400000);
-        mqttClient.print(";");
-        mqttClient.print(3033490004521 );
-        mqttClient.endMessage();
-      }
-      else if (compareArray(ActualUID, Alimento2, 7))
-      {
-        mqttClient.print(";");
-        mqttClient.print(1645743600000);
-        mqttClient.print(";");
-        mqttClient.print(5410188031072);
-        mqttClient.endMessage();
-      }
-      else if (compareArray(ActualUID, Alimento3, 7))
-      {
-        mqttClient.print(";");
-        mqttClient.print(1651442400000);
-        mqttClient.print(";");
-        mqttClient.print(87157215);
-        mqttClient.endMessage();
-      }
-      else if (compareArray(ActualUID, Alimento4, 7))
-      {
-        mqttClient.print(";");
-        mqttClient.print(1705273200000);
-        mqttClient.print(";");
-        mqttClient.print(8076809513722 );
-        mqttClient.endMessage();
-      }
-
-      // Terminamos la lectura de la tarjeta tarjeta actual
-      mfrc522.PICC_HaltA();
-      M5.Lcd.setCursor(30, 140);
-      M5.Lcd.setTextColor(BLANCO);
-      M5.Lcd.println("PASE OTRO ALIMENTO");
-    }
-  }
-
-}
+void loop() {}
 
 //-----------------------------------------------------------------------------------------------------------
 
@@ -271,16 +314,11 @@ void lectura_datos()
   // Read data ***************************************************
   //En esta función los datos se leen de 16 bytes en 16 y se almacenan en buffer_1 (de 16+2 bytes)
   //para despues transferirlos a buffer que tiene un tamaño mayor
-  //Serial.println(F("Reading data ... "));
   for (int i = 0; i < (tam - 2) / 16; i++)
   {
     //data in 4 block is readed at once 4 bloques de 4 bytes total 16 bytes en cada lectura.
     status = (MFRC522::StatusCode) mfrc522.MIFARE_Read(pageAddr + i * 4, buffer_1, &tam1);
-    // if (status != MFRC522::STATUS_OK) {
-    // Serial.print(F("MIFARE_Read() failed: "));
-    // Serial.println(mfrc522.GetStatusCodeName(status));
-    // return;
-    // }
+
     //copio los datos leidos en buffer_1 a la posición correspondiente del buffer
     for (int j = 0; j < 16; j++)
     {
