@@ -22,49 +22,50 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import io.grpc.LoadBalancerRegistry;
 import io.grpc.internal.PickFirstLoadBalancerProvider;
 
 public class RaspbPhoto {
 
-    public static String PATH_TO_CREDENTIALS = "./gcloud-key.json";
-
-    public static String BUCKET = "proyectoapp-iot-1-3.appspot.com";
+    public static final String PATH_TO_CREDENTIALS = "gcloud-key.json";
+    public static final String BUCKET = "proyectoapp-iot-1-3.appspot.com";
 
     public static Storage storage;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         System.out.println("Starting Raspberry Photo app...");
 
-        LoadBalancerRegistry.getDefaultRegistry()
-                .register(new PickFirstLoadBalancerProvider());
+        LoadBalancerRegistry.getDefaultRegistry().register(new PickFirstLoadBalancerProvider());
+
+        final InputStream gFile = RaspbPhoto.class.getClassLoader().getResourceAsStream(PATH_TO_CREDENTIALS);
 
         //Start Firebase
-        try {
-            FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(
-                            new FileInputStream(PATH_TO_CREDENTIALS)))
-                    .build();
-            FirebaseApp.initializeApp(options);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
+                FirebaseOptions options = FirebaseOptions.builder()
+                        .setCredentials(GoogleCredentials.fromStream(RaspbPhoto.class.getClassLoader().getResourceAsStream(PATH_TO_CREDENTIALS)))
+                        .build();
+
+                FirebaseApp.initializeApp(options);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        guardarFirestore(null, "test");
+
 
         //Connect to Google Cloud storage
         try {
             storage = StorageOptions.newBuilder()
-                    .setCredentials(ServiceAccountCredentials.fromStream(
-                            new FileInputStream(PATH_TO_CREDENTIALS)))
+                    .setCredentials(ServiceAccountCredentials.fromStream(gFile))
                     .build()
                     .getService();
         } catch (IOException e) {
@@ -88,10 +89,12 @@ public class RaspbPhoto {
                                 "  QoS:\t" + arg1.getQos());
 
                 String nombreFichero = UUID.randomUUID().toString();
-                tomarFoto("captura.jpeg");
+                //tomarFoto("captura.jpeg");
+
                 subirFichero("captura.jpeg", "fotos/" +nombreFichero +".jpeg");
+
                 String url = "https://storage.googleapis.com/" + BUCKET + "/"
-                        +"fotos/"+nombreFichero+".jpeg";
+                        +"fotos/" + nombreFichero+".jpeg";
                 guardarFirestore(url, "subido desde Raspberry Pi");
             }
 
@@ -126,31 +129,34 @@ public class RaspbPhoto {
     }
 
     private static void subirFichero(String fichero, String referencia) {
-        try {
-            BlobId blobId = BlobId.of(BUCKET, referencia);
-            BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-            storage.create(blobInfo, Files.readAllBytes(Paths.get(fichero)));
-            //Da acceso al fichero a través de https. la URL es
-            //https:storage.googleapis.com/BUCKET/nombre_recurso
-            storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(),
-                    Acl.Role.READER));
-            System.out.println("Fichero subido: " + referencia);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BlobId blobId = BlobId.of(BUCKET, referencia);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+        storage.create(blobInfo, fichero.getBytes());
+        //Da acceso al fichero a través de https. la URL es
+        //https:storage.googleapis.com/BUCKET/nombre_recurso
+        storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(),
+                Acl.Role.READER));
+        System.out.println("Fichero subido: " + referencia);
     }
 
-   private  static void guardarFirestore(String url, String titulo){
-        Firestore db = FirestoreClient.getFirestore();
+   private static void guardarFirestore(String url, String titulo){
 
-        DocumentReference docRef = db.collection("fotos").document();
+       Firestore db = FirestoreClient.getFirestore();
+
+       DocumentReference docRef = db.collection("fotos").document();
 
         Map<String, Object> data = new HashMap<>();
         data.put("titulo", titulo);
         data.put("url", url);
         data.put("tiempo", System.currentTimeMillis());
 
-        ApiFuture<WriteResult> result = docRef.set(data); //escritura asíncrona
+       ApiFuture<WriteResult> result = docRef.set(data); //escritura asíncrona
+       try { //al añadir result.get() bloquemos hasta respuesta
+           System.out.println("Tiempo subida: "+result.get().getUpdateTime());
+       } catch (InterruptedException | ExecutionException e) {
+           e.printStackTrace();
+       }
+
     }
 
 }
