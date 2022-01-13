@@ -1,11 +1,14 @@
 package com.myfridge.app;
 
+import static com.myfridge.app.MainActivity.solicitarPermiso;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -19,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.snackbar.Snackbar;
 import com.myfridge.app.supermarkets.Result;
 import com.myfridge.app.supermarkets.Root;
 import com.tomtom.online.sdk.common.location.LatLng;
@@ -36,6 +40,7 @@ import org.json.JSONObject;
 
 public class SupermarketMapActivity extends FragmentActivity implements LocationUpdateListener, OnMapReadyCallback {
 
+    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 0;
     protected LocationManager locationManager;
     private TomtomMap tomtomMap;
     private Location userLocation;
@@ -55,25 +60,21 @@ public class SupermarketMapActivity extends FragmentActivity implements Location
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        context = this;
         super.onCreate(savedInstanceState);
+        context = this;
         mapView = new MapView(getApplicationContext());
         setContentView(R.layout.supermarket_map);// Obtenemos el mapa de forma asíncrona (notificará cuando esté listo)
-
         MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-        mapFragment.getAsyncMap(onMapReadyCallback);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mapFragment.getAsyncMap(onMapReadyCallback);
+        }
+        else {
+            solicitarPermiso(Manifest.permission.ACCESS_FINE_LOCATION, "MyFridge no tiene permiso para "+
+                            "acceder a la ubicacion del usuario.",
+                    SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
+        }
+
     }
 
     public void getNearbySupermarkets(){
@@ -164,5 +165,6 @@ public class SupermarketMapActivity extends FragmentActivity implements Location
         getNearbySupermarkets();
         this.tomtomMap.removeLocationUpdateListener(this);
     }
+
 
 }

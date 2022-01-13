@@ -1,5 +1,8 @@
 package com.myfridge.app;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +17,7 @@ import com.myfridge.app.manager.fridge.Location;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -174,6 +178,26 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+//------------------------------------------------------------------------------------------------//
+//------------------------------------ Solicitar permiso -----------------------------------------//
+
+public static void solicitarPermiso(final String permiso, String
+        justificacion, final int requestCode, final Activity actividad) {
+    if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
+            permiso)){
+        new AlertDialog.Builder(actividad)
+                .setTitle("Solicitud de permiso")
+                .setMessage(justificacion)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        ActivityCompat.requestPermissions(actividad,
+                                new String[]{permiso}, requestCode);
+                    }}).show();
+    } else {
+        ActivityCompat.requestPermissions(actividad,
+                new String[]{permiso}, requestCode);
+    }
+}
 //------------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------------//
 
