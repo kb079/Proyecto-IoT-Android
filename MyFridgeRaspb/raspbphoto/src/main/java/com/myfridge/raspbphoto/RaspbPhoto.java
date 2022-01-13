@@ -22,9 +22,11 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -42,46 +44,39 @@ public class RaspbPhoto {
 
     public static void main(String[] args){
 
-        System.out.println("Starting Raspberry Photo app...");
+        System.out.println("Raspberry Photo APP Started...");
 
         LoadBalancerRegistry.getDefaultRegistry().register(new PickFirstLoadBalancerProvider());
 
-        final InputStream gFile = RaspbPhoto.class.getClassLoader().getResourceAsStream(PATH_TO_CREDENTIALS);
-
         //Start Firebase
-            try {
-                FirebaseOptions options = FirebaseOptions.builder()
-                        .setCredentials(GoogleCredentials.fromStream(RaspbPhoto.class.getClassLoader().getResourceAsStream(PATH_TO_CREDENTIALS)))
-                        .build();
-
-                FirebaseApp.initializeApp(options);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        guardarFirestore(null, "test");
-
+        try {
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(
+                            new FileInputStream(PATH_TO_CREDENTIALS)))
+                    .build();
+            FirebaseApp.initializeApp(options);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //Connect to Google Cloud storage
         try {
             storage = StorageOptions.newBuilder()
-                    .setCredentials(ServiceAccountCredentials.fromStream(gFile))
+                    .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream(PATH_TO_CREDENTIALS)))
                     .build()
                     .getService();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        long tiempo = System.currentTimeMillis();
-
         MqttManager.conectarMqtt();
 
-        suscribirMqtt("foto", new MqttCallback() {
+        suscribirMqtt(new MqttCallback() {
             @Override
             public void connectionLost(Throwable cause) { }
 
             @Override
-            public void messageArrived(String arg0, MqttMessage arg1)  {
+            public void messageArrived(String arg0, MqttMessage arg1) throws IOException {
 
                 System.out.println(
                         "  Topic:\t" + arg0 +
@@ -89,7 +84,7 @@ public class RaspbPhoto {
                                 "  QoS:\t" + arg1.getQos());
 
                 String nombreFichero = UUID.randomUUID().toString();
-                //tomarFoto("captura.jpeg");
+                tomarFoto("captura.jpeg");
 
                 subirFichero("captura.jpeg", "fotos/" +nombreFichero +".jpeg");
 
@@ -128,10 +123,10 @@ public class RaspbPhoto {
         }
     }
 
-    private static void subirFichero(String fichero, String referencia) {
+    private static void subirFichero(String fichero, String referencia) throws IOException {
         BlobId blobId = BlobId.of(BUCKET, referencia);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-        storage.create(blobInfo, fichero.getBytes());
+        storage.create(blobInfo, Files.readAllBytes(Paths.get(fichero)));
         //Da acceso al fichero a través de https. la URL es
         //https:storage.googleapis.com/BUCKET/nombre_recurso
         storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(),
@@ -140,15 +135,14 @@ public class RaspbPhoto {
     }
 
    private static void guardarFirestore(String url, String titulo){
-
        Firestore db = FirestoreClient.getFirestore();
 
-       DocumentReference docRef = db.collection("fotos").document();
+       DocumentReference docRef = db.collection("foto").document();
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("titulo", titulo);
-        data.put("url", url);
-        data.put("tiempo", System.currentTimeMillis());
+       Map<String, Object> data = new HashMap<>();
+       data.put("titulo", titulo);
+       data.put("url", url);
+       data.put("tiempo", System.currentTimeMillis());
 
        ApiFuture<WriteResult> result = docRef.set(data); //escritura asíncrona
        try { //al añadir result.get() bloquemos hasta respuesta
@@ -156,7 +150,5 @@ public class RaspbPhoto {
        } catch (InterruptedException | ExecutionException e) {
            e.printStackTrace();
        }
-
     }
-
 }

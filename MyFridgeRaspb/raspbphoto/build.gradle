@@ -7,6 +7,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+dependencies {
+    implementation 'com.google.firebase:firebase-admin:6.13.0'//8.1.0 no va
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+}
+
 application {
     mainClass = 'com.myfridge.raspbphoto.RaspbPhoto'
 }
@@ -23,8 +28,3 @@ jar {
     }
 }
 
-dependencies {
-    implementation 'com.google.firebase:firebase-admin:8.1.0'//8.1.0 no va
-    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
-
-}
