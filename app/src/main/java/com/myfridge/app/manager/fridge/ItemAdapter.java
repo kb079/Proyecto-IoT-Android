@@ -68,6 +68,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     private Context context;
     private ViewGroup parent;
 
+    private int fridgeID = 0;
+
     private boolean filtering;
 
     //Selecionar y eliminar ITEMS
@@ -78,7 +80,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     ItemViewModel itemViewModel;
 
 
-    public ItemAdapter(ArrayList<Item> itemList, Context c) {
+    public ItemAdapter(ArrayList<Item> itemList, Context c, int fridgeID) {
+        this.fridgeID = fridgeID;
         this.items = itemList;
         if(itemList == null){
             this.items = new ArrayList<Item>();
@@ -169,6 +172,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                                         items.remove(item);
                                     }
                                     actionMode.finish();
+
+                                    //REMOVE ITEMS FROM DB
+                                    String uidUsuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    FirebaseFirestore.getInstance().collection("data").document(uidUsuario).collection("fridges").document("fridge" + fridgeID).update("items", items);
+                                    updateItemList(items); //UPDATE FOR FILTERING
+                                    //
 
                                     Toast.makeText(context, "Se han eliminado los alimentos",
                                             Toast.LENGTH_SHORT).show();

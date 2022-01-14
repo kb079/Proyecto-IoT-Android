@@ -115,6 +115,16 @@ public class FridgeContentFragment extends Fragment {
             }
         });
 
+        MenuItem addFridgeItem
+                = menu.findItem(R.id.clickAddFridge);
+        addFridgeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                MainActivity.navController.navigate(R.id.nav_addFridge);
+                return true;
+            }
+        });
+
         searchBar = (SearchView) searchViewItem.getActionView();
         searchBar.setQueryHint("Buscar alimentos...");
         searchBar.setIconified(true);
@@ -143,7 +153,7 @@ public class FridgeContentFragment extends Fragment {
 
     public void loadItems() {
         binding.recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-        adaptador = new ItemAdapter(items, getContext());
+        adaptador = new ItemAdapter(items, getContext(), fridgeID);
 
         binding.recyclerView2.setAdapter(adaptador);
 

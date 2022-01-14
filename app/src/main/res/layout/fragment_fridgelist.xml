@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:visibility="gone"
+    android:visibility="visible"
     tools:context=".ui.fridges.FridgesListFragment">
 
     <androidx.constraintlayout.widget.Group
@@ -34,6 +34,7 @@
         android:textColor="@color/blue_primary"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerView" />
@@ -46,13 +47,14 @@
         android:fontFamily="@font/montserrat"
         android:padding="15dp"
         android:text="AÑADIR NEVERA"
+        android:visibility="visible"
         app:icon="@drawable/anyadir_icon"
-        app:rippleColor="@color/white"
         app:iconPadding="5dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:rippleColor="@color/white" />
 
     <TextView
         android:id="@+id/textView9"
@@ -70,6 +72,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/blue_primary"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -82,6 +85,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
+        android:visibility="visible"
         app:backgroundTint="@color/blue_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +96,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
