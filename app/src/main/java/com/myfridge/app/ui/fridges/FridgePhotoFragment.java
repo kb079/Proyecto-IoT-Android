@@ -2,6 +2,7 @@ package com.myfridge.app.ui.fridges;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class FridgePhotoFragment extends Fragment {
 
                 if(task.isSuccessful()) {
                     FridgePhoto photo = task.getResult().getDocuments().get(0).toObject(FridgePhoto.class);
-
+                    Log.i("FridgePhoto",photo.getUrl());
 
                     Glide.with(getContext()).load(photo.getUrl())
                             .placeholder(R.drawable.ic_launcher_foreground)
