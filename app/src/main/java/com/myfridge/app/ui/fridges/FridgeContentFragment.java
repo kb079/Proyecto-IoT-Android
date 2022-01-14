@@ -104,6 +104,17 @@ public class FridgeContentFragment extends Fragment {
 
         MenuItem searchViewItem
                 = menu.findItem(R.id.app_bar_search);
+
+        MenuItem fotoItem
+                = menu.findItem(R.id.clickItem);
+        fotoItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                MainActivity.navController.navigate(R.id.nav_photoFridge);
+                return true;
+            }
+        });
+
         searchBar = (SearchView) searchViewItem.getActionView();
         searchBar.setQueryHint("Buscar alimentos...");
         searchBar.setIconified(true);
