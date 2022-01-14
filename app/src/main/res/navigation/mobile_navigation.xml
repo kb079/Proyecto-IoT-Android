@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.myfridge.app.ui.home.HomeFragment"
+        android:label=""
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.myfridge.app.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.myfridge.app.ui.about.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/nav_fridgesList"
+        android:name="com.myfridge.app.ui.fridges.FridgesListFragment"
+        android:label="@string/menu_fridgestList"
+        tools:layout="@layout/fragment_fridgelist"/>
+
+    <fragment
+        android:id="@+id/nav_addFridge"
+        android:name="com.myfridge.app.ui.fridges.FridgeAddFragment"
+        android:label="@string/menu_addFridge"
+        tools:layout="@layout/fragment_addfridge" />
+
+    <fragment
+        android:id="@+id/nav_contentFridge"
+        android:name="com.myfridge.app.ui.fridges.FridgeContentFragment"
+        android:label="@string/food_list"
+        tools:layout="@layout/fragment_contentfridge" />
+
+    <fragment
+        android:id="@+id/nav_singleItem"
+        android:name="com.myfridge.app.ui.fridges.SingleItemFragment"
+        android:label="@string/infoProducto"
+        tools:layout="@layout/fragment_single_item_info" />
+
+    <fragment
+        android:id="@+id/nav_photoFridge"
+        android:name="com.myfridge.app.ui.fridges.FridgePhotoFragment"
+        android:label="Contenido Nevera"
+        tools:layout="@layout/fragment_photofridge" />
+
+</navigation>

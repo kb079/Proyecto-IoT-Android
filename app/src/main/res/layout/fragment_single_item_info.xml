@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nutriscore2"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_bg"
+        android:backgroundTint="@color/gray"
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintBottom_toBottomOf="@+id/nutriscore_label3"
+        app:layout_constraintStart_toEndOf="@+id/nutriscore_label3"
+        app:layout_constraintTop_toTopOf="@+id/nutriscore_label3" />
+
+    <ImageView
+        android:id="@+id/imagenProducto"
+        android:layout_width="169dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_name"
+        app:srcCompat="@drawable/no_image_product" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Nombre del producto"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_primary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/product_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Marca"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/blue_secundary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagenProducto" />
+
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_brand"
+        app:srcCompat="@drawable/menu_divider"
+        app:tint="@color/blue_primary" />
+
+    <TextView
+        android:id="@+id/expired_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Fecha de caducidad:"
+        android:textColor="@color/blue_primary"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/quantity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Cantidad:"
+        android:textColor="@color/blue_primary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expired_date_label" />
+
+    <TextView
+        android:id="@+id/nutriscore_label3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Nutriscore:"
+        android:textColor="@color/blue_primary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantity_label"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/blue_secundary"
+        app:layout_constraintStart_toEndOf="@+id/quantity_label"
+        app:layout_constraintTop_toBottomOf="@+id/expired_date_label" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/blue_secundary"
+        app:layout_constraintStart_toEndOf="@+id/expired_date_label"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
