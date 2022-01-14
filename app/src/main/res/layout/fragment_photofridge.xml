@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    tools:context=".ui.fridges.FridgePhotoFragment"
     tools:layout_editor_absoluteX="10dp"
-    tools:layout_editor_absoluteY="8dp"
-    tools:context=".ui.fridges.FridgePhotoFragment">
+    tools:layout_editor_absoluteY="8dp">
 
     <TextView
         android:id="@+id/fridgeName"
@@ -17,11 +17,11 @@
         android:textAlignment="center"
         android:textColor="@color/blue_secundary"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,10 +30,9 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/fridgeName"
         app:srcCompat="@drawable/ic_menu_gallery" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

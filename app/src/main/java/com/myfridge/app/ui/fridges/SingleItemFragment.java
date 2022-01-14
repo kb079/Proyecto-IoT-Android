@@ -69,7 +69,7 @@ public class SingleItemFragment extends Fragment {
         if(item.getExpDate() == 0){
             binding.date.setText("Sin fecha de caducidad");
         } else{
-            binding.date.setText(parseData(item.getExpDate()));
+            binding.date.setText(parseData(item.getExpDate(), false));
         }
 
 

@@ -324,7 +324,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
                 if(item.getExpDate() == 0){
                     holder.binding.itemExpDate.setText("Sin fecha de caducidad");
                 }else{
-                    holder.binding.itemExpDate.setText(parseData(item.getExpDate()));
+                    holder.binding.itemExpDate.setText(parseData(item.getExpDate(), false));
                 }
 
                 holder.binding.itemQty.setText("" + item.getQty());

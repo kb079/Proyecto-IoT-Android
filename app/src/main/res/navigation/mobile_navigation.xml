@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/nav_photoFridge"
         android:name="com.myfridge.app.ui.fridges.FridgePhotoFragment"
-        android:label=""
+        android:label="Contenido Nevera"
         tools:layout="@layout/fragment_photofridge" />
 
 </navigation>

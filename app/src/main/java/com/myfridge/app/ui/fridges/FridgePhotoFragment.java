@@ -51,7 +51,7 @@ public class FridgePhotoFragment extends Fragment {
                             .placeholder(R.drawable.ic_launcher_foreground)
                             .into(binding.imageView);
 
-                    binding.fridgeName.setText(Utils.parseData(photo.getTiempo()));
+                    binding.fridgeName.setText(Utils.parseData(photo.getTiempo(), true));
                 }
             }
         });
